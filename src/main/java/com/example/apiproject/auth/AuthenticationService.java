@@ -21,7 +21,7 @@ public class AuthenticationService {
     private final AuthenticationManager authenticationManager;
     private final JwtService jwtService;
     public AuthenticationResponse register(RegisterRequest request) {
-        var user= User.builder().firstname(request.getFirstname()).lastname(request.getLastname()).email(request.getEmail()).location(request.getLocation()).telephone(request.getPhoneNumber()).password(passwordEncoder.encode(request.getPassword())).role(Role.USER).build();
+        var user= User.builder().firstname(request.getFirstname()).lastname(request.getLastname()).email(request.getEmail()).location(request.getLocation()).phoneNumber(request.getPhoneNumber()).password(passwordEncoder.encode(request.getPassword())).role(Role.USER).build();
         userRepository.save(user);
         var jwtToken=jwtService.generateToken(user);
         return AuthenticationResponse.builder().token(jwtToken).build();
@@ -34,7 +34,7 @@ public class AuthenticationService {
                      authenticationRequest.getPassword()
              )
      );
-     var user = userRepository.findByEmail(authenticationRequest.getEmail()).orElseThrow();
+        var user = userRepository.findByEmail(authenticationRequest.getEmail()).orElseThrow();
         var jwtToken=jwtService.generateToken(user);
         return AuthenticationResponse.builder().token(jwtToken).build();
     }

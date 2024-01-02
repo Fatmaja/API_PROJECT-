@@ -1,19 +1,15 @@
 package com.example.apiproject.service;
 
 
-import com.example.apiproject.config.JwtService;
 import com.example.apiproject.entity.Announcement;
-import com.example.apiproject.entity.User;
+import com.example.apiproject.exceptions.AuthorizationException;
 import com.example.apiproject.exceptions.MissingFieldException;
 import com.example.apiproject.exceptions.ResourceNotFoundException;
-import com.example.apiproject.exceptions.UserNotFoundException;
 import com.example.apiproject.repository.AnnouncementRepository;
-import com.example.apiproject.repository.UserRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @AllArgsConstructor
@@ -47,7 +43,7 @@ public class AnnouncementService {
             if ( announcement.getDescription() != null && !announcement.getDescription().isBlank()) {
                 updatedAnnouncement.setDescription(announcement.getDescription());
             }
-            if ( announcement.getDescription() != null && !announcement.getTitle().isBlank()) {
+            if ( announcement.getTitle() != null && !announcement.getTitle().isBlank()) {
                 updatedAnnouncement.setTitle(announcement.getTitle());
             }
         }
@@ -59,5 +55,17 @@ public class AnnouncementService {
 
     public List<Announcement> getAllAnnouncements(){
         return  announcementRepository.findAll();
+    }
+
+    public String delete(Integer id, String authorizationHeader) {
+        var user = userService.findUserByToken(authorizationHeader);
+        var announcement = announcementRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Announcement not exist with id: " + id));
+        if(announcement.getUser() == user) {
+            announcementRepository.delete(announcement);
+        }
+        else {
+            throw new AuthorizationException("It is not the same user");
+        }
+        return "announcement deleted";
     }
 }

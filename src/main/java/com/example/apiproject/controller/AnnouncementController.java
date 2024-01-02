@@ -33,4 +33,9 @@ public class AnnouncementController {
         return new ResponseEntity<>(announcements, HttpStatus.OK);
     }
 
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<String> deleteAnnouncement(@PathVariable Integer id,@RequestHeader("Authorization") String authorizationHeader){
+        return  ResponseEntity.ok(announcementService.delete(id,authorizationHeader));
+    }
+
 }

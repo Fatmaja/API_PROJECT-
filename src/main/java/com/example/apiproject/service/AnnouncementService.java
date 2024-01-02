@@ -68,4 +68,8 @@ public class AnnouncementService {
         }
         return "announcement deleted";
     }
+
+    public Announcement getAnnouncement(Integer id){
+        return announcementRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Announcement not exist with id: " + id));
+    }
 }

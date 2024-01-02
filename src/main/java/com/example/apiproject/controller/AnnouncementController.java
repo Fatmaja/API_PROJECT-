@@ -38,4 +38,10 @@ public class AnnouncementController {
         return  ResponseEntity.ok(announcementService.delete(id,authorizationHeader));
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<Announcement> getAnnouncement(@PathVariable Integer id){
+        Announcement announcement = announcementService.getAnnouncement(id);
+        return new ResponseEntity<>(announcement,HttpStatus.OK);
+    }
+
 }

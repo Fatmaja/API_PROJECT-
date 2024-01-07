@@ -1,6 +1,7 @@
 package com.example.apiproject.service;
 
 
+import com.example.apiproject.dto.AnnouncementUpdateRequest;
 import com.example.apiproject.entity.Announcement;
 import com.example.apiproject.exceptions.AuthorizationException;
 import com.example.apiproject.exceptions.MissingFieldException;
@@ -32,7 +33,7 @@ public class AnnouncementService {
         return announcement;
     }
 
-    public Announcement update(Announcement announcement, Integer id, String authorizationHeader) {
+    public Announcement update(AnnouncementUpdateRequest announcement, Integer id, String authorizationHeader) {
         if(id == null || authorizationHeader == null){
             throw new MissingFieldException("id or token are missing");
         }

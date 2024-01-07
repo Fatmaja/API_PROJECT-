@@ -20,6 +20,7 @@ public class UserService {
                 .orElseThrow(() -> new UserNotFoundException(userEmail));
     }
 
+
     private String extractUserEmailFromToken(String token) {
         return jwtService.extractUsername(token.substring(7));
     }

@@ -1,6 +1,7 @@
 package com.example.apiproject.controller;
 
 
+import com.example.apiproject.dto.AnnouncementUpdateRequest;
 import com.example.apiproject.entity.Announcement;
 import com.example.apiproject.service.AnnouncementService;
 import lombok.RequiredArgsConstructor;
@@ -23,7 +24,7 @@ public class AnnouncementController {
     }
 
     @PutMapping("/update/{id}")
-    public ResponseEntity<Announcement> updateAnnouncement (@PathVariable Integer id, @RequestBody Announcement announcement,@RequestHeader("Authorization") String authorizationHeader){
+    public ResponseEntity<Announcement> updateAnnouncement (@PathVariable Integer id, @RequestBody AnnouncementUpdateRequest announcement, @RequestHeader("Authorization") String authorizationHeader){
         return ResponseEntity.ok(announcementService.update(announcement,id,authorizationHeader));
     }
 

@@ -8,6 +8,7 @@ import com.example.apiproject.service.AnimalService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -15,6 +16,7 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/animal")
+@Validated
 public class AnimalController {
 
     private final AnimalService animalService;
@@ -26,7 +28,7 @@ public class AnimalController {
     }
 
     @PostMapping("/create")
-    public ResponseEntity<Animal> create(@RequestBody Animal animal, @RequestHeader("Authorization") String token){
+    public ResponseEntity<Animal> create(@Validated @RequestBody Animal animal, @RequestHeader("Authorization") String token){
         var animalToCreate=animalService.create(animal,token);
         return new ResponseEntity<>(animalToCreate,HttpStatus.OK);
     }
@@ -47,7 +49,7 @@ public class AnimalController {
     }
 
     @PatchMapping("/update/{id}")
-    public ResponseEntity<String> updateAnimalDescription( @PathVariable Integer id,@RequestBody AnimalUpdateRequest request,@RequestHeader("Authorization")String token) {
+    public ResponseEntity<String> updateAnimalDescription( @PathVariable Integer id,@Validated @RequestBody AnimalUpdateRequest request,@RequestHeader("Authorization")String token) {
         try {
             animalService.update(id,token,request );
             return ResponseEntity.ok("Animal description updated successfully");

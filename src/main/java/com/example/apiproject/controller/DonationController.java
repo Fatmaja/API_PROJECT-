@@ -8,6 +8,7 @@ import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -15,13 +16,14 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/donation")
+@Validated
 public class DonationController {
 
     private final DonationService donationService;
 
 
     @PostMapping("/donate")
-    public ResponseEntity<Donation> makeDonation(@RequestBody Donation donation, @RequestHeader("Authorization") String token){
+    public ResponseEntity<Donation> makeDonation(@Validated @RequestBody Donation donation, @RequestHeader("Authorization") String token){
         return new ResponseEntity<>(donationService.create(donation,token), HttpStatus.OK);
     }
 

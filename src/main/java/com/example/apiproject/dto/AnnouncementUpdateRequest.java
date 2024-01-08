@@ -1,6 +1,7 @@
 package com.example.apiproject.dto;
 
 
+import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -9,6 +10,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class AnnouncementUpdateRequest {
+
+    @NotBlank(message = "")
     private String title;
     private String description;
 }

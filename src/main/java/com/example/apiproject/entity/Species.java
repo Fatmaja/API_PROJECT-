@@ -9,7 +9,8 @@ public enum Species {
     BIRD("bird"),
     CAT("cat"),
     GOAT("GOAT"),
-    SHEEP("sheep");
+    SHEEP("sheep"),
+    OTHER("other");
     // Add more species as needed
 
     private final String value;

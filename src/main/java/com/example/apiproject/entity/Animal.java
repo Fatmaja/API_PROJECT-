@@ -2,6 +2,7 @@ package com.example.apiproject.entity;
 
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -16,12 +17,15 @@ public class Animal {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    @NotBlank(message = "name is required")
     private String name;
 
+    @NotBlank(message = "age is required")
     private String age;
 
     private String description;
 
+    @NotBlank(message = "location is required")
     private String location;
 
     private Species species;

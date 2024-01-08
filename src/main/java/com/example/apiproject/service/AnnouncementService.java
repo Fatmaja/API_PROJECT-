@@ -37,9 +37,7 @@ public class AnnouncementService {
         if(id == null || authorizationHeader == null){
             throw new MissingFieldException("id or token are missing");
         }
-        var user = userService.findUserByToken(authorizationHeader);
         var updatedAnnouncement = announcementRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Announcement not exist with id: " + id));
-        updatedAnnouncement.setUser(user);
         if (announcement != null) {
             if ( announcement.getDescription() != null && !announcement.getDescription().isBlank()) {
                 updatedAnnouncement.setDescription(announcement.getDescription());

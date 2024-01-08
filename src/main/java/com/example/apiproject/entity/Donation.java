@@ -1,6 +1,7 @@
 package com.example.apiproject.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.DecimalMin;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -17,6 +18,7 @@ public class Donation {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    @DecimalMin(value = "1", message = "Amount must be greater than or equal to 1.0")
     private Long amount;
 
     private String note;
